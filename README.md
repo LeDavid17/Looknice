@@ -1,2 +1,2 @@
-# looknice
+# LookNice
 Linter for LookML code
