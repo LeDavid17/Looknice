@@ -13,6 +13,7 @@ setup(
     include_package_data = True,
     install_requires = read_requirements(),
     package_data= {"looknice": ["looknice/config/.sqlfluff"]},
+    include_package_data = True,
     entry_points = """
         [console_scripts]
         my_test = looknice.cli:my_test
