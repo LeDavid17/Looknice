@@ -1,0 +1,17 @@
+[sqlfluff:rules]
+max_line_length = 300
+
+[sqlfluff:indentation]
+# See https://docs.sqlfluff.com/en/stable/indentation.html
+indented_joins = False
+indented_ctes = False
+indented_using_on = True
+template_blocks_indent = True
+
+[sqlfluff:rules:L010]
+# Keywords
+capitalisation_policy = upper
+
+[sqlfluff:rules:L042]
+# By default, allow subqueries in from clauses, but not join clauses
+forbid_subquery_in = both
