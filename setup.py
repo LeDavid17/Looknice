@@ -12,6 +12,7 @@ setup(
     packages = find_packages(),
     include_package_data = True,
     install_requires = read_requirements(),
+    package_data= {"looknice": ["looknice/config/.sqlfluff"]}
     entry_points = """
         [console_scripts]
         my_test = looknice.cli:my_test
@@ -20,7 +21,3 @@ setup(
         looknice_fix = looknice.cli:fix
     """
 )
-
-
-# looknice lint = looknice.cli:lint
-# looknice fix = looknice.cli:fix
