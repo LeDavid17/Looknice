@@ -11,8 +11,8 @@ setup(
     version = "0.1",
     packages = find_packages(),
     include_package_data = True,
-    install_requires = read_requirements(),
     data_files = [("looknice/config/", ["looknice/config/.sqlfluff"])],
+    install_requires = read_requirements(),
     entry_points = """
         [console_scripts]
         my_test = looknice.cli:my_test
