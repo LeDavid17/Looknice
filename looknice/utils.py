@@ -57,3 +57,9 @@ def convert_to_lookml(
         lookml = lookml.replace("WHERE " + key, "WHERE " + value)
         lookml = lookml.replace("AND " + key, "AND " + value)
     return lookml
+
+
+if __name__ == "__main__":
+    
+    s = "and {% condition created_at %} created_at {% endcondition %}"
+    get_parameters(s)
