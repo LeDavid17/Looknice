@@ -9,8 +9,7 @@ def read_requirements():
 setup(
     name = "looknice",
     version = "0.1",
-    packages = ["looknice"],
-    package_dir = {"looknice": "looknice"},
+    packages =  find_packages(),
     include_package_data = True,
     package_data = {"looknice": ["config/*.txt"]},
     install_requires = read_requirements(),
