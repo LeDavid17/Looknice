@@ -55,3 +55,11 @@ def fix(path: str):
         click.echo(res)
     else:
         click.echo(error_string)
+
+
+import importlib.resources as pkg_resources
+from looknice import config
+@click.command()
+def print_path():
+    with pkg_resources.path(config, "my_text_file.txt") as p:
+        click.echo(p)
