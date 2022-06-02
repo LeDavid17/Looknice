@@ -10,7 +10,7 @@ setup(
     name = "looknice",
     version = "0.1",
     packages =  ["looknice"],
-    package_dir= {"looknice": "looknice"}
+    package_dir= {"looknice": "looknice"},
     include_package_data = True,
     package_data = {"looknice": ["config/*.txt", ".sqlfluff"]},
     install_requires = read_requirements(),
