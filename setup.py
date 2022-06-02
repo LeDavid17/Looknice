@@ -9,9 +9,10 @@ def read_requirements():
 setup(
     name = "looknice",
     version = "0.1",
-    packages =  find_packages(),
+    packages =  ["looknice"],
+    package_dir= {"looknice": "looknice"}
     include_package_data = True,
-    package_data = {"looknice": ["config/*.txt"]},
+    package_data = {"looknice": ["config/*.txt", ".sqlfluff"]},
     install_requires = read_requirements(),
     entry_points = """
         [console_scripts]
