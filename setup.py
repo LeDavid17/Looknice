@@ -1,4 +1,5 @@
-from setuptools import setup, find_packages
+from gettext import find
+import setuptools
 
 def read_requirements():
     with open("requirements.txt") as req:
@@ -6,13 +7,12 @@ def read_requirements():
         requirements = content.split("\n")
     return requirements
 
-setup(
+setuptools.setup(
     name = "looknice",
     version = "0.1",
-    packages =  ["looknice"],
-    package_dir= {"looknice": "looknice"},
+    packages =  setuptools.find_packages(),
     include_package_data = True,
-    package_data = {"looknice": ["config/*.txt", ".sqlfluff"]},
+    package_data = {"": ["looknice/config"]},
     install_requires = read_requirements(),
     entry_points = """
         [console_scripts]
