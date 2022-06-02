@@ -20,6 +20,6 @@ setup(
         looknice_lint = looknice.cli:lint
         looknice_params = looknice.cli:print_parameters
         looknice_fix = looknice.cli:fix
-        looknice_print_path = looknice.cli:print_path
+        looknice_path = looknice.cli:path
     """
 )

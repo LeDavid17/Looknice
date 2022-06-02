@@ -60,6 +60,6 @@ def fix(path: str):
 import importlib.resources as pkg_resources
 from looknice import config
 @click.command()
-def print_path():
+def path():
     with pkg_resources.path(config, "my_text_file.txt") as p:
         click.echo(p)
