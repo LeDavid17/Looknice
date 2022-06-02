@@ -1,15 +1,16 @@
-import os
 import re
 import lkml
 from typing import Dict
+import importlib.resources as pkg_resources
+from looknice import config
 
 PARAM_REGEXPS = (
     {"find": r"{%.*?%}.*?{%.*?%}", "replace": r"\s?{%.*?%}\s?"},
     {"find": r"\${.*?\.SQL_TABLE_NAME}", "replace": r"\${|.SQL_TABLE_NAME}"}
 )
 
-SQLFLUFF_CONFIG = os.getcwd() + "/looknice/config/.sqlfluff"
-
+with pkg_resources.path(config, ".sqlfluff") as p:
+    SQLFLUFF_CONFIG = p
 
 def get_code(path: str) -> str:
     """Returns the derived table lookml code in a string"""
