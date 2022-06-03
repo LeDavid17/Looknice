@@ -9,7 +9,6 @@ PARAM_REGEXPS = (
     {"find": r"\${.*?\.SQL_TABLE_NAME}", "replace": r"\${|.SQL_TABLE_NAME}"}
 )
 
-import os
 with importlib.resources.path("looknice", "config") as p:
         SQLFLUFF_CONFIG = os.path.join(p, ".sqlfluff")
 

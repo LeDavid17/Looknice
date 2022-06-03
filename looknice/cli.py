@@ -10,9 +10,17 @@ error_string = "no derived table code found"
 def my_test():
     click.echo("Hello, world!")
 
-@click.command()
-@click.argument("path", type = str)
+@click.group()
+def cli():
+    pass
+
+@cli.command()
+@click.argument(
+    "path",
+    type = str,
+)
 def lint(path: str):
+    """Take a path to a view.lkml file and lint its derived table SQL code if any"""
     code = get_code(path)
     if code:
         res = sqlfluff.lint(
@@ -24,9 +32,13 @@ def lint(path: str):
     else:
         click.echo(error_string)
 
-@click.command()
-@click.argument("path", type = str)
+@cli.command()
+@click.argument(
+    "path",
+    type = str,
+)
 def print_parameters(path: str):
+    """Take a path to a view.lkml file and print the LookML special parameters contained in the derived table SQL code"""
     code = get_code(path)
     if code:
         parameters = get_parameters(code)
@@ -34,9 +46,13 @@ def print_parameters(path: str):
     else:
         click.echo(error_string)
 
-@click.command()
-@click.argument("path", type = str)
+@cli.command()
+@click.argument(
+    "path",
+    type = str,
+)
 def fix(path: str):
+    """Take a path to a view.lkml file and fix its derived table SQL code if any"""
     code = get_code(path)
     if code:
         parameters = get_parameters(code)
@@ -58,7 +74,8 @@ def fix(path: str):
         click.echo(error_string)
 
 
-@click.command()
+@cli.command()
 def config_path():
+    """Returns the location of the config file"""
     with importlib.resources.path("looknice", "config") as p:
         click.echo(p)

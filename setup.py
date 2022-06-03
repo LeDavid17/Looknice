@@ -16,9 +16,6 @@ setuptools.setup(
     entry_points = """
         [console_scripts]
         my_test = looknice.cli:my_test
-        looknice_lint = looknice.cli:lint
-        looknice_params = looknice.cli:print_parameters
-        looknice_fix = looknice.cli:fix
-        looknice_config_path = looknice.cli:config_path
+        looknice = looknice.cli:cli
     """
 )
