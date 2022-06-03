@@ -59,6 +59,6 @@ def fix(path: str):
 
 
 @click.command()
-def path():
+def config_path():
     with importlib.resources.path("looknice", "config") as p:
-        click.echo(p / "my_text_file.txt")
+        click.echo(p)

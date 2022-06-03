@@ -19,6 +19,6 @@ setuptools.setup(
         looknice_lint = looknice.cli:lint
         looknice_params = looknice.cli:print_parameters
         looknice_fix = looknice.cli:fix
-        looknice_path = looknice.cli:path
+        looknice_config_path = looknice.cli:config_path
     """
 )
