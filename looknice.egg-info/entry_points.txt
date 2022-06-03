@@ -1,6 +1,8 @@
-[console_scripts]
-looknice_fix = looknice.cli:fix
-looknice_lint = looknice.cli:lint
-looknice_params = looknice.cli:print_parameters
-looknice_path = looknice.cli:path
-my_test = looknice.cli:my_test
+
+        [console_scripts]
+        my_test = looknice.cli:my_test
+        looknice_lint = looknice.cli:lint
+        looknice_params = looknice.cli:print_parameters
+        looknice_fix = looknice.cli:fix
+        looknice_path = looknice.cli:path
+    

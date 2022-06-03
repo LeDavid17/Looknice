@@ -1,3 +1,4 @@
+import importlib.resources
 import click
 import sqlfluff
 from looknice.utils import get_code, get_parameters, convert_to_sql, convert_to_lookml
@@ -59,5 +60,5 @@ def fix(path: str):
 
 @click.command()
 def path():
-    with pkg_resources.path("config", "my_text_file.txt") as p:
-        click.echo(p)
+    with importlib.resources.path("looknice", "config") as p:
+        click.echo(p / "my_text_file.txt")

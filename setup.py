@@ -11,7 +11,6 @@ setuptools.setup(
     name = "looknice",
     version = "0.1",
     packages =  setuptools.find_packages(),
-    package_dir = {"": "looknice"},
     include_package_data = True,
     install_requires = read_requirements(),
     entry_points = """

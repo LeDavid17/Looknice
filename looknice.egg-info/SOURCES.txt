@@ -10,4 +10,5 @@ looknice.egg-info/dependency_links.txt
 looknice.egg-info/entry_points.txt
 looknice.egg-info/requires.txt
 looknice.egg-info/top_level.txt
+looknice/config/.sqlfluff
 looknice/config/my_text_file.txt
