@@ -1,2 +1,2 @@
 # LookNice
-Linter for LookML code
+Linter for your derived tables' SQL code.
