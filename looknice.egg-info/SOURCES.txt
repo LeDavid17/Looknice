@@ -3,6 +3,7 @@ README.md
 setup.py
 looknice/__init__.py
 looknice/cli.py
+looknice/misc.py
 looknice/utils.py
 looknice.egg-info/PKG-INFO
 looknice.egg-info/SOURCES.txt

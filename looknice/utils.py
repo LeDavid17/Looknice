@@ -1,6 +1,6 @@
 import re
 import lkml
-from typing import Dict
+from typing import Dict, List
 import importlib.resources
 import os
 
@@ -25,6 +25,7 @@ def get_parameters(
     s: str,
 ) -> Dict[str, str]:
     """Returns a dictionary of special Lookml parameters"""
+
     values = list()
     keys = list()
 
@@ -41,6 +42,7 @@ def convert_to_sql(
     params: Dict[str, str]
 ) -> str:
     """Returs sql code from lookml code"""
+
     sql = lookml
     for key, value in params.items():
         sql = sql.replace(value, key)
@@ -52,6 +54,7 @@ def convert_to_lookml(
     params: Dict[str, str]
 ) -> str:
     """Returns sql code from lookml code"""
+
     lookml = sql
     for key, value in params.items():
         lookml = lookml.replace("FROM " + key, "FROM " + value)
@@ -60,7 +63,42 @@ def convert_to_lookml(
     return lookml
 
 
+def get_dimensions(path: str) -> List[Dict]:
+    """Returns the dimension json object"""
+    with open(path, "r") as file:
+            return lkml.load(file)["views"][0]["dimensions"]
+
+def get_schema(path: str) -> str:
+    "Returns the sql script of the Databticks schema file"
+    with open(path, "r") as file:
+        return file.read().replace("\n", "")
+
+def convert_type(t: str) -> str:
+    """Convert Hive data type to Looker dimension type"""
+    if (t == "integer") | ("decimal" in t) | (t == "bigint") | (t == "double"):
+        return "number"
+    if (t == "timestamp") | (t == "date"):
+        return "time"
+    if (t == "boolean"):
+        return "yesno"
+    return t
+
+def print_dimension(
+    name: str,
+    type: str,
+    comment: str
+) -> None:
+    """Write the LookML code for the dimension based on the arguments"""
+
+    is_timestamp = (type == "timestamp") | (type == "date")
+    dimension = "dimension_group" if is_timestamp else "dimension"
+    timeframes = "[time, date, week, month, quarter, year]" if type == "timestamp" else "[date]"
+
+    s1 = f"\n{dimension}: {name} {{\n    description: {comment}\n    type: {convert_type(type)}\n"
+    s2 = f"    timeframes: {timeframes}\n" if is_timestamp else""
+    s3 = f"    sql: {{$TABLE}}.{name};;\n}}"
+    print(s1+s2+s3)
+
 if __name__ == "__main__":
+    pass
     
-    s = "and {% condition created_at %} created_at {% endcondition %}"
-    get_parameters(s)
