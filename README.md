@@ -29,7 +29,8 @@ $ looknice write-lkml <path_to_databricks_sql_file>
 ```
 
 ## Limitations
-Works only on the first view defined in a Looker view file
+* Works on view with derived table SQL code
+* Works only on the first view defined in a Looker view file
 
 
 
