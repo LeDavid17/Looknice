@@ -1,5 +1,5 @@
 # LookNice
-Command line interface to help us migrate and format and LookML and Spark SQL code
+Command line interface to help migrate and format and LookML and Spark SQL code
 
 ## Installation
 ```$ pip install git+https://github.com/Le-David-ml/looknice.git```
