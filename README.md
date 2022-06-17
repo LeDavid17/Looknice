@@ -17,15 +17,16 @@ $ looknice get-missing-descriptions <path_to_Looker_view_file>
 ```
 \
 \
--`write-lkml` writes the lookml code from the Databricks' SQL script
-```
-$ looknice write-lkml <path_to_databricks_sql_file>
-```
-\
-\
 -`write-sql` writes the Databricks SQL script from the LookML view file
 ```
 $ looknice write-sql <path_to_Looker_view_file>
 ```
+\
+\
+-`write-lkml` writes the lookml code from the Databricks' SQL script
+```
+$ looknice write-lkml <path_to_databricks_sql_file>
+```
+
 
 
