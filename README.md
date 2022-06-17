@@ -2,9 +2,9 @@
 Command line interface to help us migrate and format and LookML and Spark SQL code
 
 ## Commands
-<fix>
+fix
 Takes a Looker view file as argument and format the derived table SQL code
-```
+```command
 looknice fix <path_to_Looker_view_file>
 ```
 
