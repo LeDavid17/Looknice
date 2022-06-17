@@ -2,7 +2,7 @@
 Command line interface to help us migrate and format and LookML and Spark SQL code
 
 ## Installation
-```$ pip install git+```
+```$ pip install git+https://github.com/Le-David-ml/looknice.git```
 
 ## Commands
 - `fix` takes a Looker view file as argument and format the derived table SQL code
