@@ -7,7 +7,7 @@ import looknice.api
 from looknice.looker_utils import SQLFLUFF_CONFIG
 import re
 
-error_string = "no derived table code found"
+error_string = "no derived table code found  "
 
 ### derived table
 @click.group()
