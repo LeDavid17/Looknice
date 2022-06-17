@@ -29,8 +29,9 @@ $ looknice write-lkml <path_to_databricks_sql_file>
 ```
 
 ## Limitations
-* Works on view with derived table SQL code
+* Intended for views with derived table SQL code
 * Works only on the first view defined in a Looker view file
+* Doesn't handle json object very well
 
 
 
