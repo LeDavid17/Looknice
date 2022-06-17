@@ -15,7 +15,6 @@ setuptools.setup(
     install_requires = read_requirements(),
     entry_points = """
         [console_scripts]
-        my_test = looknice.cli:my_test
         looknice = looknice.cli:cli
     """
 )
