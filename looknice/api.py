@@ -2,8 +2,6 @@ import looknice.looker_utils as looker
 import sqlfluff
 from looknice.looker_utils import SQLFLUFF_CONFIG
 
-error_string = "no derived table code found"
-
 def fix(path: str):
     """Fix derived table code. Take a path to a view.lkml file."""
     code = looker.get_lookml_code(path)
@@ -24,7 +22,7 @@ def fix(path: str):
         )
         return res
     else:
-        return error_string
+        return looker.ERROR_STRING
 
 def get_missing_descriptions(path: str):
     """Print a list of dimensions with missing description"""

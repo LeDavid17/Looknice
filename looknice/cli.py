@@ -7,8 +7,6 @@ import looknice.api
 from looknice.looker_utils import SQLFLUFF_CONFIG
 import re
 
-error_string = "no derived table code found  "
-
 ### derived table
 @click.group()
 def cli():
@@ -30,7 +28,7 @@ def lint(path: str):
         )
         click.echo(res)
     else:
-        click.echo(error_string)
+        click.echo(looker.ERROR_STRING)
 
 @cli.command()
 @click.argument(
@@ -44,7 +42,7 @@ def parameters(path: str):
         parameters = looker.get_parameters(code)
         click.echo(parameters)
     else:
-        click.echo(error_string)
+        click.echo(ERROR_STRING)
 
 @cli.command()
 @click.argument(
