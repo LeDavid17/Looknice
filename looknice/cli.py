@@ -9,10 +9,6 @@ import re
 
 error_string = "no derived table code found"
 
-@click.command()
-def my_test():
-    click.echo("Hello, world!")
-
 ### derived table
 @click.group()
 def cli():
@@ -56,7 +52,7 @@ def parameters(path: str):
     type = str,
 )
 def fix(path: str):
-    """Fix derived table code. Take a path to a view.lkml file."""
+    """Format the derived table SQL code"""
     code = looker.get_code(path)
     if code:
         parameters = looker.get_parameters(code)
@@ -90,7 +86,7 @@ def fix(path: str):
     type = str
 )
 def get_missing_descriptions(path: str):
-    """Returns a list of dimensions with missing description"""
+    """Returns a list of Looker dimensions with a missing description"""
     dimensions = looker.get_dimensions(path)
     res = [d["name"] for d in dimensions if ~("description" in d.keys())]
     if res:
@@ -166,8 +162,8 @@ def join_views(
     "path",
     type = str
 ) 
-def write_lkml_schema(path: str) -> None:
-    """Write the lookml code from the SQL script"""
+def write_lkml(path: str) -> None:
+    """Writes the lookml code from the Databricks' SQL script"""
     script = databricks.get_sql_code(path)
     columns = re.findall(r"\((.*?)\)", script)[0].split(",")
     schema, table = re.findall("CREATE TABLE IF NOT EXISTS (.*?)\(", script)[0].split(".")
@@ -200,7 +196,7 @@ def write_lkml_schema(path: str) -> None:
     type = str
 )
 def write_sql(path: str) -> None:
-    """Write the SQL script from the LookML view file"""
+    """Writes the Databricks SQL script from the LookML view file"""
     s = "\n\nCREATE OR REPLACE VIEW <TODO: schema>.vw_<TODO: viewname> (\n"
     s = s + looker.convert_lookml_dims(path)[:-2] + "\n)\n" #[:-2] to remove last comma
     s = s + looknice.api.fix(path)[:-1] +";\n\nALTER VIEW <TODO: schema>.vw_<TODO: viewname> OWNER TO `super-users`"
