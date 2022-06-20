@@ -1,9 +1,37 @@
 """Functions taking a SQL script as argument"""
+import re
 
 def get_sql_code(path: str) -> str:
     "Returns the sql script of the Databticks schema file"
+
     with open(path, "r") as file:
-        return file.read().replace("\n", "")
+        return file.read()
+
+def clean_sql_code(s: str) -> str:
+    # clean the initial script
+    special_chars = (
+        {"find": r"\n", "replace": ""}, #remove break line to use regular expressions
+        {"find": r"decimal\(.*?\)", "replace": "decimal"} #remove option for decimal to split with comma
+    )
+    for d in special_chars:
+        s = re.sub(d["find"], d["replace"], s)
+    
+    # deal with structures
+    structs = dict(
+        zip(
+            re.findall(r"(\w+)\sSTRUCT", s), #find structure names     
+            re.findall(r"STRUCT\<(.*?)\>", s) #find columns in structure
+        )
+    )
+    for k, v in structs.items():
+        cols = v.split(",")
+        new_cols = []
+        for c in cols:
+            new_cols.append(k + "." + c.strip())
+        # s = re.sub(k+r" STRUCT\<(.*?)\>,?", ','.join(new_cols) + ",", s)
+        s = re.sub(k+r" STRUCT\<(.*?)\>", ','.join(new_cols), s)
+    # return s[:-1] if s[-1]=="," else s #remove trailing comma
+    return s
 
 def replace_hive_types(t: str) -> str:
     """Convert Hive data type to Looker dimension type"""

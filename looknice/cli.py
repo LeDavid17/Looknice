@@ -42,7 +42,7 @@ def parameters(path: str):
         parameters = looker.get_parameters(code)
         click.echo(parameters)
     else:
-        click.echo(ERROR_STRING)
+        click.echo(looker.ERROR_STRING)
 
 @cli.command()
 @click.argument(
@@ -69,7 +69,7 @@ def fix(path: str):
         )
         click.echo(res)
     else:
-        click.echo(error_string)
+        click.echo(looker.ERROR_STRING)
 
 
 # @cli.command()
@@ -163,18 +163,20 @@ def join_views(
 def write_lkml(path: str) -> None:
     """Writes the lookml code from the Databricks' SQL script"""
     script = databricks.get_sql_code(path)
-    columns = re.findall(r"\((.*?)\)", script)[0].split(",")
-    schema, table = re.findall("CREATE TABLE IF NOT EXISTS (.*?)\(", script)[0].split(".")
+    clean_script = databricks.clean_sql_code(script)
+    columns = re.findall(r"\((.*?)\)", clean_script)[0].split(",")
+    schema, table = re.findall("CREATE TABLE IF NOT EXISTS (.*?)\(", clean_script)[0].split(".")
 
-    click.echo(f"\n\nview: {table}{{\n\tdescription: <TODO: description>\n\tsql_table_name: {schema}.{table} ;;")
+    click.echo(f'\n\nview: {table}{{\n\tdescription: "<TODO: description>"\n\tsql_table_name: {schema}.{table};;')
     miss_descriptions = []
     for c in columns:
+        print(c)
         name = c.split()[0]
         type = c.split()[1]
         try:
             comment = re.findall(r"\"(.*?)\"", c)[0]
         except IndexError:
-            comment = "<TODO: comment>"
+            comment = '"<TODO: comment>"'
             miss_descriptions.append(name)
 
         click.echo(
@@ -184,6 +186,7 @@ def write_lkml(path: str) -> None:
                 comment = comment
             )
         )
+    click.echo("}")
 
     if miss_descriptions:
         click.echo(f"\n\n***ALERT***\nThe following dimensions are missing a description:\n{miss_descriptions}")
@@ -197,7 +200,7 @@ def write_sql(path: str) -> None:
     """Writes the Databricks SQL script from the LookML view file"""
     s = "\n\nCREATE OR REPLACE VIEW <TODO: schema>.vw_<TODO: viewname> (\n"
     s = s + looker.convert_lookml_dims(path)[:-2] + "\n)\n" #[:-2] to remove last comma
-    s = s + looknice.api.fix(path)[:-1] +";\n\nALTER VIEW <TODO: schema>.vw_<TODO: viewname> OWNER TO `super-users`"
+    s = s + looknice.api.fix(path)[:-1] +";\n\nALTER VIEW <TODO: schema>.vw_<TODO: viewname> OWNER TO `super-users`;"
     click.echo(s)
     
     miss_descriptions = looknice.api.get_missing_descriptions(path)
