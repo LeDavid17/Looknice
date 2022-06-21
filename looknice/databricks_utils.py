@@ -50,11 +50,21 @@ def convert_sql_columns(
 ) -> None:
     """Convert SQL schema defintion to LookML dimension code"""
 
+    # dates and timestamp
     is_timestamp = (type == "timestamp") | (type == "date")
     dimension = "dimension_group" if is_timestamp else "dimension"
     timeframes = "[time, date, week, month, quarter, year]" if type == "timestamp" else "[date]"
 
-    s1 = f"\n\t{dimension}: {name} {{\n\t\tdescription: {comment}\n\t\ttype: {replace_hive_types(type)}\n"
-    s2 = f"\t\ttimeframes: {timeframes}\n" if is_timestamp else""
-    s3 = f"\t\tsql: {{$TABLE}}.{name};;\n\t}}"
-    return s1+s2+s3
+    #struct object
+    group_label = None
+    if "." in name:
+        group_label = name.split(".")[0]
+        name = name.split(".")[1]
+
+    s1 = f"\n\t{dimension}: {name} {{\n\t\tdescription: {comment}\n"
+    s2 = f"\t\tgroup_label: {group_label}\n" if group_label else ""
+    s3 = f"\t\ttype: {replace_hive_types(type)}\n"
+    s4 = f"\t\ttimeframes: {timeframes}\n" if is_timestamp else""
+    s5 = f"\t\tsql: {{$TABLE}}.{name};;\n\t}}"
+    
+    return s1+s2+s3+s4+s5
