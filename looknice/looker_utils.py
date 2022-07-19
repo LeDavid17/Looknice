@@ -72,38 +72,50 @@ def get_dimensions(path: str) -> List[Dict]:
     with open(path, "r") as file:
             return lkml.load(file)["views"][0]["dimensions"]
 
-
-def replace_lookml_types(t: str) -> str:
-    """Replace Looker dimension type to Hive data type"""
-    if t == "number":
-        return ("<TODO: integer/decimal/bigint/double>")
-    if t == "time":
-        return "<TODO: timestamp/date>"
-    if (t == "yesno"):
-        return "boolean"
-    return t
+def get_dimension_groups(path: str) -> List[Dict]:
+    """Returns the Looker dimension groups in a json object"""
+    with open(path, "r") as file:
+            return lkml.load(file)["views"][0]["dimension_groups"]
 
 
-def convert_lookml_dim(d: Dict):
-    """Convert Looker dimensions to spark SQL statement in sql script"""
-    s = "    " + d["name"]
-    try:
-        s = s + " " + replace_lookml_types(d["type"])
-    except KeyError:
-        s = s + " <TODO: type>"
+# def replace_lookml_types(t: str) -> str:
+#     """Replace Looker dimension type to Hive data type"""
+#     if t == "number":
+#         return ("<TODO: integer/decimal/bigint/double>")
+#     if t == "time":
+#         return "<TODO: timestamp/date>"
+#     if (t == "yesno"):
+#         return "boolean"
+#     return t
+
+
+# def convert_lookml_dim(d: Dict):
+#     """Convert Looker dimensions to spark SQL statement in sql script"""
+#     s = "    " + d["name"]
+#     try:
+#         s = s + " COMMENT '" + d["description"] + "',"
+#     except KeyError:
+#         s = s + " COMMENT '<TODO: comment>',"
     
-    try:
-        s = s + " COMMENT '" + replace_lookml_types(d["description"]) + "',"
-    except KeyError:
-        s = s + " COMMENT '<TODO: comment>',"
-    
-    return s
+#     return s
 
 def convert_lookml_dims(path):
     dimensions = get_dimensions(path)
     s = ""
     for d in dimensions:
-        s = s + convert_lookml_dim(d) + "\n"
+        s = s + "    " + d["name"]
+        try:
+            s = s + " COMMENT '" + d["description"] + "',\n"
+        except KeyError:
+            s = s + " COMMENT '<TODO: comment>',\n"
+
+    dimension_groups = get_dimension_groups(path)
+    for d in dimension_groups:
+        s = s + "    " + d["name"] + '_at'
+        try:
+            s = s + " COMMENT '" + d["description"] + "',\n"
+        except KeyError:
+            s = s + " COMMENT '<TODO: comment>',\n"
     
     return s
 
