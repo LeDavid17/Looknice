@@ -61,10 +61,10 @@ def convert_sql_columns(
         group_label = name.split(".")[0]
         name = name.split(".")[1]
 
-    s1 = f"\n\t{dimension}: {name} {{\n\t\tdescription: {comment}\n"
+    s1 = f'\n\t{dimension}: {name} {{\n\t\tdescription: "{comment}"\n'
     s2 = f"\t\tgroup_label: {group_label}\n" if group_label else ""
     s3 = f"\t\ttype: {replace_hive_types(type)}\n"
     s4 = f"\t\ttimeframes: {timeframes}\n" if is_timestamp else""
-    s5 = f"\t\tsql: {{$TABLE}}.{name};;\n\t}}"
+    s5 = f"\t\tsql: ${{TABLE}}.{name};;\n\t}}"
     
     return s1+s2+s3+s4+s5

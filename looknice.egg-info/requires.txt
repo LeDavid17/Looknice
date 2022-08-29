@@ -1,3 +1,0 @@
-click==7.1.2
-sqlfluff==0.13.2
-lkml==1.2.0
