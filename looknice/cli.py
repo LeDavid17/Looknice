@@ -1,6 +1,6 @@
 # import importlib.resources
 import click
-import utils as U
+import looknice.utils as U
 import re
 
 ### derived table
