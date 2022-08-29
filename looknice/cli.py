@@ -40,7 +40,7 @@ def write_lkml(path: str) -> None:
             miss_descriptions.append(col_name)
 
         click.echo(
-            databricks.convert_sql_columns(
+            U.convert_sql_columns(
                 name = col_name,
                 type = col_type,
                 comment = col_comment
