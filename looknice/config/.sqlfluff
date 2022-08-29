@@ -12,12 +12,15 @@ template_blocks_indent = True
 # Keywords
 capitalisation_policy = upper
 
-[sqlfluff:rules:L042]
-# By default, allow subqueries in from clauses, but not join clauses
-forbid_subquery_in = both
+[sqlfluff:rules:L011]
+# Implicit/explicit aliasing of table
+aliasing = implicit
 
 [sqlfluff:rules:L031]
 # Avoid table aliases in from clauses and join conditions.
 # Disabled for some dialects (e.g. bigquery)
 force_enable = False
 
+[sqlfluff:rules:L042]
+# By default, allow subqueries in from clauses, but not join clauses
+forbid_subquery_in = both

@@ -2,7 +2,7 @@ import looknice.looker_utils as looker
 import sqlfluff
 from looknice.looker_utils import SQLFLUFF_CONFIG
 
-def fix(path: str):
+def fix(path: str, dialect: str = "ansi"):
     """Fix derived table code. Take a path to a view.lkml file."""
     code = looker.get_lookml_code(path)
     if code:
@@ -13,7 +13,7 @@ def fix(path: str):
         )
         fixed_sql_code = sqlfluff.fix(
             sql_code,
-            dialect = "ansi",
+            dialect = dialect,
             config_path = SQLFLUFF_CONFIG
         )
         res = looker.convert_sql(

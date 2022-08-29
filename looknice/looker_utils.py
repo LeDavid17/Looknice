@@ -100,24 +100,44 @@ def get_dimension_groups(path: str) -> List[Dict]:
 #     return s
 
 def convert_lookml_dims(path):
-    dimensions = get_dimensions(path)
-    s = ""
+    dimensions = sorted(get_dimensions(path), key = lambda d: d["name"]) #sort dimensions alphabetically based on the dimension name
+    columns, schema, select = "", "", ""
     for d in dimensions:
-        s = s + "    " + d["name"]
-        try:
-            s = s + " COMMENT '" + d["description"] + "',\n"
-        except KeyError:
-            s = s + " COMMENT '<TODO: comment>',\n"
+        # columns
+        columns = columns + d["name"] + ",\n"
 
-    dimension_groups = get_dimension_groups(path)
-    for d in dimension_groups:
-        s = s + "    " + d["name"] + '_at'
+        # schema
+        schema = schema + "    " + d["name"]
         try:
-            s = s + " COMMENT '" + d["description"] + "',\n"
+            schema = schema + " COMMENT '" + d["description"] + "',\n"
         except KeyError:
-            s = s + " COMMENT '<TODO: comment>',\n"
+            schema = schema + " COMMENT '<TODO: comment>',\n"
+
+        # select
+        try:
+            select = select + re.sub(r" +", " ", d["sql"]) + " AS " + d["name"] + ',\n\n'
+        except KeyError:
+            select = select + "<TODO: sql> AS " + d["name"] + ',\n\n'
+
+    dimension_groups = sorted(get_dimension_groups(path), key = lambda d: d["name"]) #sort dimension_groups alphabetically based on the dimension name
+    for d in dimension_groups:
+        # columns
+        columns = columns + d["name"] + "_at,\n"
+
+        #schema
+        schema = schema + "    " + d["name"] + '_at'
+        try:
+            schema = schema + " COMMENT '" + d["description"] + "',\n"
+        except KeyError:
+            schema = schema + " COMMENT '<TODO: comment>',\n"
+
+        # select
+        try:
+            select = select + re.sub(" +", " ", d["sql"]) + " AS " + d["name"] + '_at,\n\n'
+        except KeyError:
+            select = select + "<TODO: sql> AS " + d["name"] + '_at,\n'
     
-    return s
+    return columns, schema, select
 
 if __name__ == "__main__":
     pass
