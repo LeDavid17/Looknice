@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS schema_name.table_name(
         tier1 string,
         tier2 string,
         tier3 string
-    > COMMENT "Description of tiers column",
+    > COMMENT "Description of tiers columns",
     status COMMENT 'Desciption of status column',
     type string
 )
@@ -65,7 +65,7 @@ view: table_name{
         }
 
         dimension: tier3 {
-                description: "Description of tiers column (see README.md)"
+                description: "Description of tiers columns (see README.md)"
                 group_label: tiers
                 type: string
                 sql: ${TABLE}.tier3;;
