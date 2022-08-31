@@ -14,16 +14,16 @@ $ looknice write-lkml <path_to_databricks_sql_file>
 
 Input:
 ```
-CREATE TABLE IF NOT EXISTS schema_name.table_name(
+CREATE TABLE IF NOT EXISTS schema_name.table_name (
     user_id string COMMENT 'Unique customer identifier',
     created_at timestamp 'Action timestamp',
     tiers STRUCT<
         tier1 string,
         tier2 string,
         tier3 string
-    > COMMENT "Description of tiers columns",
-    status COMMENT 'Desciption of status column',
-    type string
+    > COMMENT 'Description of tiers columns (see README.md)',
+    status COMMENT 'Desciption of the status column',
+    type string -- missing description
 )
 USING delta
 location 'path_to_the_dbfs_file';
@@ -94,4 +94,4 @@ The following dimensions are missing a description:
 - With views, the tool can't infer the dimension types. Remember to change time dimensions to dimension_group.
 - With [STRUCT type](https://docs.databricks.com/sql/language-manual/data-types/struct-type.html), the description, if any, is only assign to the last element of the structure.
 
-Please ping me if there's issues and feel free to clone & contribute!
+Please ping me if there are issues and feel free to clone & contribute!
