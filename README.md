@@ -1,5 +1,5 @@
 # LookNice
-Command line interface to help migrate Databricks' schemas to LookML.
+CLI to help migrate Databricks' schemas to LookML.
  
 ## Installation
 ```$ pip install git+https://github.com/LeDavid17/looknice.git```
