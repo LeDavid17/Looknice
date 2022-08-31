@@ -93,3 +93,5 @@ The following dimensions are missing a description:
 ## Known Limitations
 - With views, the tool can't infer the dimension types. Remember to change time dimensions to dimension_group.
 - With [STRUCT type](https://docs.databricks.com/sql/language-manual/data-types/struct-type.html), the description, if any, is only assign to the last element of the structure.
+
+Please ping me if there's issue and feel free to clone & contribute!
