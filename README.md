@@ -65,7 +65,7 @@ view: table_name{
         }
 
         dimension: tier3 {
-                description: "<TODO>"
+                description: "Description of tiers column (see README.md)"
                 group_label: tiers
                 type: string
                 sql: ${TABLE}.tier3;;
@@ -87,7 +87,7 @@ view: table_name{
 
 ***ALERT***
 The following dimensions are missing a description:
-['created_at', 'tiers.tier1', 'tiers.tier2', 'tiers.tier3', 'type']
+['created_at', 'tiers.tier1', 'tiers.tier2', 'type']
 ```
 
 ## Known Limitations
