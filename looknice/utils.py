@@ -23,13 +23,14 @@ def clean_sql_code(s: str) -> str:
             re.findall(r"STRUCT\<(.*?)\>", s) #find columns in structure
         )
     )
+
     for k, v in structs.items():
         cols = v.split(",")
         new_cols = []
         for c in cols:
             new_cols.append(k + "." + c.strip())
         # s = re.sub(k+r" STRUCT\<(.*?)\>,?", ','.join(new_cols) + ",", s)
-        s = re.sub(k+r" STRUCT\<(.*?)\>", ','.join(new_cols), s)
+        s = re.sub(k+r" STRUCT\<.*?\>", ','.join(new_cols), s)
     # return s[:-1] if s[-1]=="," else s #remove trailing comma
     return s
 
